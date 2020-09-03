@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bandmate", "Bandmate\Bandmate.csproj", "{15817D12-C852-4376-B4D7-5C73119CCCEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15817D12-C852-4376-B4D7-5C73119CCCEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15817D12-C852-4376-B4D7-5C73119CCCEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15817D12-C852-4376-B4D7-5C73119CCCEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15817D12-C852-4376-B4D7-5C73119CCCEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8C70AE5-7145-4D05-BB28-A5384C839E49}
+	EndGlobalSection
+EndGlobal
