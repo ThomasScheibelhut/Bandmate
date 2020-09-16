@@ -12,7 +12,9 @@ namespace Bandmate.Models
         [Column("genre_id")]
         public Guid GenreId { get; set; }
         [Column("artist_id")]
-        public Guid ArtistId { get; set; }
+        public Guid? ArtistId { get; set; }
+        [Column("musician_id")]
+        public Guid? MusicianId { get; set; }
         [Column("name")]
         [StringLength(50)]
         public string Name { get; set; }
@@ -20,8 +22,8 @@ namespace Bandmate.Models
         [ForeignKey(nameof(ArtistId))]
         [InverseProperty(nameof(Artists.Genres))]
         public virtual Artists Artist { get; set; }
-        [ForeignKey(nameof(ArtistId))]
+        [ForeignKey(nameof(MusicianId))]
         [InverseProperty(nameof(Musicians.Genres))]
-        public virtual Musicians ArtistNavigation { get; set; }
+        public virtual Musicians Musician { get; set; }
     }
 }

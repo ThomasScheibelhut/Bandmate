@@ -17,6 +17,7 @@ namespace Bandmate.Models
 
         public virtual DbSet<Articles> Articles { get; set; }
         public virtual DbSet<Artists> Artists { get; set; }
+        public virtual DbSet<ArtistsMusicians> ArtistsMusicians { get; set; }
         public virtual DbSet<Genres> Genres { get; set; }
         public virtual DbSet<Instruments> Instruments { get; set; }
         public virtual DbSet<Musicians> Musicians { get; set; }
@@ -30,6 +31,7 @@ namespace Bandmate.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+
             }
         }
 
@@ -57,20 +59,23 @@ namespace Bandmate.Models
                 entity.Property(e => e.Zip).IsFixedLength();
             });
 
+            modelBuilder.Entity<ArtistsMusicians>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
             modelBuilder.Entity<Genres>(entity =>
             {
-                entity.Property(e => e.GenreId).ValueGeneratedNever();
+                entity.Property(e => e.GenreId).HasDefaultValueSql("(newid())");
 
                 entity.HasOne(d => d.Artist)
                     .WithMany(p => p.Genres)
                     .HasForeignKey(d => d.ArtistId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_genres_artists");
 
-                entity.HasOne(d => d.ArtistNavigation)
+                entity.HasOne(d => d.Musician)
                     .WithMany(p => p.Genres)
-                    .HasForeignKey(d => d.ArtistId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasForeignKey(d => d.MusicianId)
                     .HasConstraintName("FK_genres_musicians");
             });
 

@@ -1,10 +1,13 @@
+using Bandmate.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace Bandmate
 {
@@ -20,8 +23,13 @@ namespace Bandmate
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			var connection = Configuration.GetConnectionString("BandmateDB");
+			services.AddDbContext<CCIPContext>(options=> options.UseSqlServer(connection));
+			services.AddControllersWithViews()
+				.AddNewtonsoftJson(options =>
+				options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+			);
 
-			services.AddControllersWithViews();
 
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>

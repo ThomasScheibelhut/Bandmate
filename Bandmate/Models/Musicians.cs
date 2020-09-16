@@ -46,7 +46,7 @@ namespace Bandmate.Models
         [Column("open_to_joining_bands")]
         public bool OpenToJoiningBands { get; set; }
 
-        [InverseProperty("ArtistNavigation")]
+        [InverseProperty("Musician")]
         public virtual ICollection<Genres> Genres { get; set; }
         [InverseProperty("Musician")]
         public virtual ICollection<Instruments> Instruments { get; set; }
