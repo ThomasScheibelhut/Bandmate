@@ -3,20 +3,29 @@ import { Home } from './components/Home';
 import { Navbar } from './components/Navbar';
 import { Switch, Route } from "react-router-dom";
 import { CategoryPage } from './components/CategoryPage';
-import { ProfilePage } from './components/ProfilePage';
+import { MusicanProfilePage } from './components/MusicanProfilePage';
+import { ArtistProfilePage } from './components/ArtistProfilePage';
+import { VenueProfilePage } from './components/VenueProfilePage';
+import SignIn from './components/SignIn';
 
 export const App = () => {
 
     return (
         <div style={{ position: "relative", minHeight:"100vh", width:"100%" }}>
-            <div style={{ paddingBottom:"3%" }}>
+            <div style={{ paddingBottom:"9%" }}>
             <Navbar />
                 <Switch>
+                    <Route path="/venues/:id">
+                        <VenueProfilePage />
+                    </Route>
+                    <Route path="/artists/:id">
+                        <ArtistProfilePage />
+                    </Route>
                     <Route path="/musicians/:id">
-                        <ProfilePage />
+                        <MusicanProfilePage />
                     </Route>
                     <Route path="/:category/f/:genre">
-                        <ProfilePage />
+                        <CategoryPage />
                     </Route>
                     <Route path="/:category">
                         <CategoryPage />

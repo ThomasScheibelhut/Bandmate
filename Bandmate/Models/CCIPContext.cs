@@ -29,10 +29,6 @@ namespace Bandmate.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,7 +57,19 @@ namespace Bandmate.Models
 
             modelBuilder.Entity<ArtistsMusicians>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.ArtistId, e.MusicianId });
+
+                entity.HasOne(d => d.Artist)
+                    .WithMany(p => p.ArtistsMusicians)
+                    .HasForeignKey(d => d.ArtistId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_artists_musicians_artists");
+
+                entity.HasOne(d => d.Musician)
+                    .WithMany(p => p.ArtistsMusicians)
+                    .HasForeignKey(d => d.MusicianId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_artists_musicians_musicians");
             });
 
             modelBuilder.Entity<Genres>(entity =>
@@ -114,9 +122,11 @@ namespace Bandmate.Models
             {
                 entity.Property(e => e.ShowId).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
-
                 entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.StartDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Title).IsUnicode(false);
 
                 entity.HasOne(d => d.Venue)
                     .WithMany(p => p.Shows)

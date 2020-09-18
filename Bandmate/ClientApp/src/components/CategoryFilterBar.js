@@ -23,19 +23,19 @@ export const CategoryFilterBar = (props) => {
             Genres
             <List component="nav" className={classes.root} aria-label="mailbox folders">
                 <ListItem button
-                    onClick={() => props.filter("rock")}
+                    onClick={() => props.filter("genre/rock")}
                     divider
                 >
                     <ListItemText primary="Rock" />
                 </ListItem>
                 <ListItem button
-                    onClick={() => props.filter("Country")}
+                    onClick={() => props.filter("genre/Country")}
                     divider
                 >
                     <ListItemText primary="Country" />
                 </ListItem>
                 <ListItem button
-                    onClick={() => props.filter("Metal")}
+                    onClick={() => props.filter("genre/Metal")}
                     divider
                 >
                     <ListItemText primary="Metal" />
@@ -57,6 +57,44 @@ export const CategoryFilterBar = (props) => {
                     divider
                 >
                     <ListItemText primary="Hip-Hop" />
+                </ListItem>
+            </List>
+            <List component="nav" className={classes.root} aria-label="mailbox folders">
+                <ListItem button
+                    onClick={() => props.filter("city/Chicago")}
+                    divider
+                >
+                    <ListItemText primary="Chicago" />
+                </ListItem>
+                <ListItem button
+                    onClick={() => props.filter("city/st.louis")}
+                    divider
+                >
+                    <ListItemText primary="St. Louis" />
+                </ListItem>
+                <ListItem button
+                    onClick={() => props.filter("city/kansas city")}
+                    divider
+                >
+                    <ListItemText primary="Kansas City" />
+                </ListItem>
+                <ListItem button
+                    onClick={() => props.filter("city/Memphis")}
+                    divider
+                >
+                    <ListItemText primary="Memphis" />
+                </ListItem>
+                <ListItem button
+                    onClick={() => props.filter("city/Nashville")}
+                    divider
+                >
+                    <ListItemText primary="Nashville" />
+                </ListItem>
+                <ListItem button
+                    onClick={() => props.filter("city/Cleveland")}
+                    divider
+                >
+                    <ListItemText primary="Cleveland" />
                 </ListItem>
             </List>
         </div>

@@ -24,7 +24,7 @@ namespace Bandmate.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Musicians>>> GetMusicians()
         {
-            var musicians = await _context.Musicians.Include(x => x.Genres).ToListAsync();
+            var musicians = await _context.Musicians.Include(x => x.Genres).Include(y=> y.Instruments).ToListAsync();
 
             return musicians;
         }
@@ -51,6 +51,8 @@ namespace Bandmate.Controllers
                 .Include(x => x.Genres)
                 .Include(x => x.Instruments)
                 .Include(x => x.SocialMedia)
+                .Include(x => x.ArtistsMusicians)
+                .ThenInclude(y=> y.Artist)
                 .FirstOrDefaultAsync(i => i.MusicianId == id);
 
             if (musicians == null)

@@ -10,6 +10,7 @@ namespace Bandmate.Models
     {
         public Musicians()
         {
+            ArtistsMusicians = new HashSet<ArtistsMusicians>();
             Genres = new HashSet<Genres>();
             Instruments = new HashSet<Instruments>();
             SocialMedia = new HashSet<SocialMedia>();
@@ -45,7 +46,12 @@ namespace Bandmate.Models
         public bool OpenToRecording { get; set; }
         [Column("open_to_joining_bands")]
         public bool OpenToJoiningBands { get; set; }
+        [Column("login")]
+        [StringLength(15)]
+        public string Login { get; set; }
 
+        [InverseProperty("Musician")]
+        public virtual ICollection<ArtistsMusicians> ArtistsMusicians { get; set; }
         [InverseProperty("Musician")]
         public virtual ICollection<Genres> Genres { get; set; }
         [InverseProperty("Musician")]

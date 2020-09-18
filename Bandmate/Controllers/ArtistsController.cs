@@ -38,14 +38,17 @@ namespace Bandmate.Controllers
         [HttpGet("genre/{genre}")]
         public async Task<ActionResult<IEnumerable<Artists>>> GetArtistsByGenre(string genre)
         {
-            return await _context.Artists.Where(x=> x == x.Genres.Where(y=>y.Name == genre)).ToListAsync();
+            return await _context.Artists.Include(x => x.Genres).Where(y => y.Genres.Any(z => z.Name == genre)).ToListAsync();
         }
 
         // GET: api/Artists/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Artists>> GetArtists(Guid id)
         {
-            var artists = await _context.Artists.FindAsync(id);
+            var artists = await _context.Artists
+                .Include(x => x.ArtistsMusicians)
+                .ThenInclude(y => y.Musician)
+                .FirstOrDefaultAsync(i => i.ArtistId == id);
 
             if (artists == null)
             {
@@ -54,7 +57,7 @@ namespace Bandmate.Controllers
 
             return artists;
         }
-
+        
         // PUT: api/Artists/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
