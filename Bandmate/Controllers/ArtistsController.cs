@@ -31,7 +31,7 @@ namespace Bandmate.Controllers
         [HttpGet("City/{city}")]
         public async Task<ActionResult<IEnumerable<Artists>>> GetArtistsByCity(string city)
         {
-            return await _context.Artists.Where(x => x.City == city).ToListAsync();
+            return await _context.Artists.Include(x => x.Genres).Where(x => x.City == city).ToListAsync();
         }
         
         // GET: api/Artists/Genre/Metal

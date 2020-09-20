@@ -12,9 +12,12 @@ export const App = () => {
 
     return (
         <div style={{ position: "relative", minHeight:"100vh", width:"100%" }}>
-            <div style={{ paddingBottom:"9%" }}>
-            <Navbar />
+            <div style={{ paddingBottom: "9%" }}>
+                <Navbar />
                 <Switch>
+                    <Route path="/signin">
+                        <SignIn />
+                    </Route>
                     <Route path="/venues/:id">
                         <VenueProfilePage />
                     </Route>
@@ -31,7 +34,7 @@ export const App = () => {
                         <CategoryPage />
                     </Route>
                     <Route path="/">
-                        <Home />
+                        <Home/>
                     </Route>
                 </Switch>
             </div>

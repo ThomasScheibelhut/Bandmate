@@ -43,6 +43,13 @@ namespace Bandmate.Controllers
             return venues;
         }
 
+        // GET: api/Artists/City/Memphis
+        [HttpGet("City/{city}")]
+        public async Task<ActionResult<IEnumerable<Venues>>> GetVenuesByCity(string city)
+        {
+            return await _context.Venues.Where(x => x.City == city).ToListAsync();
+        }
+
         // PUT: api/Venues/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

@@ -13,6 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import { CategoryCards } from '../components/CategoryCards';
 import { useEffect } from 'react';
+import { Paper } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import GridList from '@material-ui/core/GridList';
+import { Link } from "react-router-dom";
 
 export const MusicanProfilePage = () => {
     const [{ data, isLoading, isError }, doFetch] = useDataAPI(
@@ -27,65 +31,99 @@ export const MusicanProfilePage = () => {
     }, [id])
 
     return (
-        <div>
-            <div style={{ width: "20%", height: "20%" }}>
-                <img src={useParams().id + ".jpg"} style={{ width: "100%", height: "100%" }} />
-            </div>
-            {data && <div>
-                <h2>{data.name}</h2>
-                <div>{data.city}, {data.state}</div>
-                <div>{data.description}</div>
-                <div>
-                    Contact
-                     
-                    <IconButton
+        <div style={{ padding: "3%", paddingLeft: "6%" }}>
+            <Grid container direction="row" alignItems="stretch" justify="center">
+                <Grid item style={{ width: "35%", height: "35%", paddingRight:"5%" }}>
+                    <Paper style={{ paddingBottom: "100%", height: "0", position: "relative" }}>
+                        {data && <img src={data.profilePicture} style={{ width: "100%", height: "100%", display: "block", position: "absolute" }} />}
+                    </Paper>
+                    <Paper style={{ alignContent: "center", paddingLeft: "5%", paddingBottom: "5%", backgroundColor: "slategray", color: "white" }}>
+                        <IconButton
                             aria-label="show more"
                             aria-haspopup="true"
                         >
-                        <InstagramIcon />
-                    </IconButton>
-                    <IconButton
-                        aria-label="show more"
-                        aria-haspopup="true"
-                    >
-                        <FacebookIcon />
-                    </IconButton>
-                    <IconButton
+                            <InstagramIcon />
+                        </IconButton>
+                        <IconButton
                             aria-label="show more"
                             aria-haspopup="true"
                         >
-                        <TwitterIcon />
-                    </IconButton>
-                    {data.openToGigs ? "Open for Gigs": "Not available for Gigs"}
-                    {data.openToRecording ? "Open for session work": "Not available for session work"}
-                    {data.openToJoiningBands ? "Open to joining bands" : "Not available to join bands"}
-                </div>
-                <div>
-                    {data.genres && data.genres.map((row) => (
+                            <FacebookIcon />
+                        </IconButton>
+                        <IconButton
+                            aria-label="show more"
+                            aria-haspopup="true"
+                        >
+                            <TwitterIcon />
+                        </IconButton>
+                        <br />
+                        {data.openToGigs ? "Open for Gigs" : "Not available for Gigs"}
+                        <br />
+                        {data.openToRecording ? "Open for session work" : "Not available for session work"}
+                        <br />
+                        {data.openToJoiningBands ? "Open to joining bands" : "Not available to join bands"}
+                    </Paper>
+                </Grid>
+                <Grid item style={{ width: "50%", height: "100%" }}>
+                    {data && <div><Paper item style={{ padding: "3%", width: "100%", height: "100%", backgroundColor: "slategray", color: "white" }}>
+                        <div><span style={{ fontSize: "200%" }}>{data.name}</span> - {data.city}, {data.state}</div>
+                        <div>{data.description}</div>
                         <div>
-                            {row.name}
                         </div>
-                    ))}
-                </div>
-                <div>
-                    {data.instruments && data.instruments.map((row) => (
-                        <div>
-                            {row.type}
-                        </div>
-                    ))}
-                </div> 
-                <div>
-                    {data.artistsMusicians && data.artistsMusicians.map((row) => (
-                        <div>
-                            <Avatar src={data.musicianId + ".jpg"} />
+                        <Grid container direction="row" alignItems="stretch" justify="space-around">
+                            <Grid item>
+                                <span style={{ fontSize: "150%" }}>Genres:</span>
+                        <div>{data.genres && data.genres.map((row) => (
                             <div>
-                                {row.artist.name}
+                                {row.name}
                             </div>
-                        </div>
-                    ))}
-                </div>
-            </div>}
-            <CategoryCards />
+                        ))}
+                                </div>
+                                </Grid>
+                            <Grid item>
+                                <span style={{ fontSize: "150%" }}>Instruments:</span>
+                        <div> {data.instruments && data.instruments.map((row) => (
+                            <div>
+                                {row.type}
+                            </div>
+                        ))}
+                                </div> 
+                            </Grid>
+                        </Grid>
+                        </Paper>
+                        <br/>
+                        <Paper item style={{ padding: "1%", height: "100%", backgroundColor: "slategray", color:"white" }}>
+                            Member of:
+                            <GridList row={1}>{data.artistsMusicians && data.artistsMusicians.map((row) => (
+                                <Grid container direction="column" alignItems="center" justify="center">
+                                    <Grid item>
+                                        <Link to={`/artists/${row.artistId}`} style={{ textDecoration: 'none' }}>
+                                            <Avatar src={row.artist.profilePicture} style={{ width: "100px", height: "100px" }} />
+                                        </Link>
+                                        </Grid>
+                                    <Grid item>
+                                        <Link to={`/artists/${row.artistId}`} style={{ textDecoration: 'none', color:"white" }}>
+                                            {row.artist.name}
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                            ))}</GridList>
+                            {data.artistsMusicians && data.artistsMusicians.length == 0 && <Grid container direction="column" alignItems="center" justify="center">
+                                <Grid item>
+                                    <br /><br />
+                                    This musician isn't a member of any bands
+                                    <br /><br />
+                                </Grid>
+                            </Grid>}
+                        </Paper>
+                    </div>}
+                </Grid>
+            </Grid>
+            <br /><br />
+            <Paper item style={{ padding: "2%", backgroundColor: "slategray", color: "white" }}>
+                <h2>Explore More</h2>
+                <CategoryCards />
+                </Paper>
         </div>
     )
 }

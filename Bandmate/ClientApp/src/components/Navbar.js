@@ -10,6 +10,7 @@ import { Paper } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useDataAPI } from '../components/useDataAPI';
 import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
 
 export const Navbar = () => {
 
@@ -37,11 +38,15 @@ export const Navbar = () => {
     return (
         <div>
             <div style={{ backgroundColor: "purple", padding: "1%" }}></div>
-            <h2>
-                <Link to={"/"} style={{ textDecoration: 'none', fontFamily: 'Cookie', color:"black" }}>
+            <Grid container justify="space-around" component={Paper} style={{ padding: "1%" }}>
+                <Grid item style={{ paddingRight: "5%" }}>
+                    <h1>
+                        <Link to={"/"} style={{ textDecoration: 'none', fontFamily: 'Cookie', color: "black", fontSize:"150%" }}>
                     Bandmate
                 </Link>
-            </h2>
+                    </h1>
+                    </Grid>
+                <Grid item style={{ width: "70%" }}>
             <Autocomplete
                 options={data}
                 getOptionLabel={() => ''}
@@ -61,21 +66,25 @@ export const Navbar = () => {
                         history.push("musicians/" + newValue.musicianId)
                     }
                 }}
-            />
+                    />
+                    </Grid>
+                        <Grid item>
             <IconButton
                 aria-label="show more"
                 aria-haspopup="true"
                 onClick={handleOpen}
             >
                 <StarBorderIcon />
-            </IconButton>
+                    </IconButton>
             <IconButton
                 aria-label="show more"
                 aria-haspopup="true"
                 onClick={handleOpen}
             >
                 <AccountCircleIcon />
-            </IconButton>
+                    </IconButton>
+                    </Grid>
+                    </Grid>
             <Modal
                 open={open}
                 onClose={handleClose}
